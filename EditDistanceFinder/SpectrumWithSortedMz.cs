@@ -8,11 +8,11 @@ using InformedProteomics.Backend.MassSpecData;
 
 namespace EditDistanceFinder
 {
-    public class SpectrumWithSortedMz // here we are not going to hold onto a spectrum at all, just read in the 32 peaks, that's it
+    public class SpectrumWithSortedMz 
     {
         public int ScanNum { get; private set; }
         public string path { get; private set; }
-        private const int topNElements = 32;
+        private const int topNElements = 20; // this variable stores the number of items that will be stored into the array of mz values used for comparison
         public string peptide { get; private set; }
 
         public SpectrumWithSortedMz(Spectrum s, string path, string peptide)
@@ -29,7 +29,7 @@ namespace EditDistanceFinder
         public static string getOrderedMZFromSpectrum(Peak[] Peaks)
         {   //after sorting by intensity
             var sorted = Peaks.OrderBy(c => -c.Intensity).Take(topNElements); // the minus sign indicates descending order
-            var orderedMz = sorted.OrderBy(c => -c.Mz).Select(p => p.Mz.ToString()); // the minus sign indicates descending order
+            var orderedMz = sorted.OrderBy(c => c.Mz).Select(p => p.Mz.ToString()); // this will sort in ascending order (0 -> largest)
             return string.Join(",", orderedMz);
         }
 

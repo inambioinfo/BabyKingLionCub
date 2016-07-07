@@ -27,8 +27,6 @@ namespace EditDistanceFinder
         }
         private void ParseMzid(List<string> filesFromDir, string MzMLDir, string inputDir)//, int inputDirLength
         {
-            
-
             var options = new Options
             {
                 MsgfQValue = 0.01, // can change this to other values, such as 0.01 
@@ -53,10 +51,8 @@ namespace EditDistanceFinder
                     prsms.Add(new PrSm(evidence));
                 }
                 //prsms holds all the values from the whole file, so now send that to make combinations
-
                 Console.WriteLine("the filename for mzml is: "+ filename.Replace(inputDir, MzMLDir).Replace("mzid", "mzML"));
                 prsmAndFile.Add( new PrsmAndFile(prsms, filename.Replace(inputDir, MzMLDir).Replace("mzid", "mzML"))); // here strip the .mzid replace with .mzML and strip inputdir and add mzmldir
-                // MzMLDir + filename.Remove(0,20).Remove(filename.Length-5,5) + ".mzML")
             }
         }
  

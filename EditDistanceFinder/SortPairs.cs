@@ -9,14 +9,7 @@ using InformedProteomics.Backend.MassSpecData;
 
 namespace EditDistanceFinder
 {
-    public class SortPairs // maybe make into static class with two public methods - one will call from main and the other from Console_Sim
-        /* this class is just going to call the levenshteinDistance computer and  
-        *  then store the output to files based on those scores - nothing else 
-        */
-        //main calls this program and this creates all the objects needed
-        //ReadFilesInDir will be a method inside of this class
-        //create prsm and the prsmandfile    
-        //call make combos
+    public class SortPairs 
     {
         private MakeCombinations combinations;
         //constructor
@@ -27,15 +20,7 @@ namespace EditDistanceFinder
             Console.WriteLine("Making combinations");
             //need to fill in here to make the combinatons
             combinations = new MakeCombinations(createASpectrum(combinationFiller.prsmFile));//create a new spectrum
-
         }
-        //public SortPairs(string input)
-        //{   Console.WriteLine("Creating PrSmAndFile List");
-        //    PrSms combinationFiller = GetInputDir(input);
-        //    Console.WriteLine("Making combinations");
-        //    //need to fill in here to make the combinatons
-        //    combinations = new MakeCombinations(createASpectrum(combinationFiller.prsmFile));//create a new spectrum
-        //}
 
         internal void ToFile()
         {
@@ -60,7 +45,21 @@ namespace EditDistanceFinder
             }
             return results;
         }
-        private PrSms GetInputDir(string InputDir, string MzMLDir) 
+
+        //temporarily method for creating codex values stored here, will most likely move to SQLiteConnector class
+        public static void createCodexValues(List<string> fileHolderList)
+        {
+            List<string> filesTableValues = new List<string>();
+            //List<string> codexValues = new List<string> { 'a','b','c' };
+            int lengthOfDir = fileHolderList.Count;
+            for (int i = 0; i < lengthOfDir; i++)
+            {   // here add the values of the alphabet and assign to each of the path names
+                //filesTableValues.Add(codexValues[i]);
+                // you will then send to a command that fills these to the database as a bulk inser
+            }
+
+        }
+        private PrSms GetInputDir(string InputDir, string MzMLDir) //unit testing of this method requires public static 
         {
             DirectoryInfo d = new DirectoryInfo(InputDir); //Assuming Test is your Folder
             FileInfo[] Files = d.GetFiles("*.mzid"); //Getting Text files
@@ -71,8 +70,9 @@ namespace EditDistanceFinder
                 //need to find a way to trim or remove the _msgfplus off, .Remove(15) and .Trim(15) cannot be used with FileInfo
                 FileHolderList.Add(InputDir + "\\" + file);
             }
-            //here send the entire FileHolderList over to Prsm
-           return new PrSms(FileHolderList, MzMLDir, InputDir);//, inputDirLength
+            //here send the entire FileHolderList over to Prsms
+            //here pass the whole FileHolderList over to a new method which will assign a codex value to each file and create and send to table 
+           return new PrSms(FileHolderList, MzMLDir, InputDir);
         }
 
         private void SortPairs2(string stringOne, string stringTwo) // this is never called - check to make sure before deleting

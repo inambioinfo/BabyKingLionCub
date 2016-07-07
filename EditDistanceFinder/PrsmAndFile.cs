@@ -8,7 +8,7 @@ namespace EditDistanceFinder
 {
     public class PrsmAndFile
     {
-        public PrsmAndFile(List<PrSm> prsms, string fileName)
+        public PrsmAndFile(List<PrSm> prsms, string fileName)// this is likely where the codex for each file will be set
         {
             prsmsHolder = prsms;
             fileNameHolder = fileName;
