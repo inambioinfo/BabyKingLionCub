@@ -47,8 +47,9 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="InformedProteomics.Backend">
-      <HintPath>..\..\..\..\Informed-Proteomics\InformedProteomics.Backend\bin\Debug\InformedProteomics.Backend.dll</HintPath>
+    <Reference Include="InformedProteomics.Backend, Version=1.0.6022.19517, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\InformedProteomics.Backend.dll</HintPath>
     </Reference>
     <Reference Include="MTDBFramework, Version=1.0.5883.15343, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
