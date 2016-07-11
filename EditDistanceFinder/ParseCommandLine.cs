@@ -12,16 +12,12 @@ namespace EditDistanceFinder
     public class ParseCommandLine
     {
             [Option('r', "read", Required = true,
-              HelpText = "Input file to be processed.")]
+              HelpText = "Path to directory where your database is stored.")]
             public string InputDir { get; set; }
 
             [Option('v', "verbose", DefaultValue = true,
               HelpText = "Prints all messages to standard output.")]
             public bool Verbose { get; set; }
-
-            [Option('d', "dir", Required = true,
-                  HelpText = "Input mzML file directory")]
-            public string MzMLDir { get; set; }
 
             [Option('e', "eVal", DefaultValue = 1e-10,
                   HelpText = "Specifies the minimum cutoff for e-values.")]

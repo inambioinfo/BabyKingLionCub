@@ -83,18 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComputeLevenshteinDistance.cs" />
-    <Compile Include="PrSm.cs" />
-    <Compile Include="PrsmAndFile.cs" />
-    <Compile Include="SortPairs.cs" />
+    <Compile Include="InputListItems.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="MakeCombinations.cs" />
-    <Compile Include="PrSms.cs" />
     <Compile Include="ParseCommandLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpectrumPair.cs" />
-    <Compile Include="SpectrumWithSortedMz.cs" />
     <Compile Include="SQLiteConnector.cs" />
-    <Compile Include="SQLiteConnectorForSpectrum.cs" />
     <Compile Include="UnitTests.cs" />
   </ItemGroup>
   <ItemGroup>

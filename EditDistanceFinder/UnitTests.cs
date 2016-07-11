@@ -13,7 +13,16 @@ namespace EditDistanceFinder
         {   string stringOne = @"C:\Users\sieb277\Desktop\test_MzidFiles";
             string stringTwo = @"C:\Users\sieb277\Desktop\test_mzmlFiles";
             //SortPairs.GetInputDir(stringOne, stringTwo); //private method
+        }
 
+        [Test]
+        public static void testLevenshteinDistanceCalculator()
+        {
+            int actualDistance = 1; // the peptides below are one edit distance apart
+            string stringOne = "LKAEEQAADQVAYQQAVQAIKDKQFVLEADQVIFKR";
+            string stringTwo = "LKAEEQAADQVAYQQAVQAIKDKQFVLEADAVIFKR";
+            int distanceCalculated = ComputeLevenshteinDistance.LevenshteinDistance(stringOne, stringTwo);
+            Assert.That(distanceCalculated, Is.EqualTo(actualDistance));
         }
     }
 }

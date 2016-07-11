@@ -9,39 +9,46 @@ namespace EditDistanceFinder
 {
     public class MakeCombinations
     {
-        private List<SpectrumWithSortedMz> prsmFile;
+        public static List<InputListItems> inputs = new List<InputListItems>();
+        public static List<string> aggregateValuesForPairsTable = new List<string>();
 
-
-        public MakeCombinations(List<SpectrumWithSortedMz> prsmFile)
+        public MakeCombinations(List<InputListItems> inputs)
         {
-            this.prsmFile = prsmFile;
+            MakeCombinations.inputs = inputs;
             MakeAllCombinations();
         }
 
         public void MakeAllCombinations()
-        { Stopwatch time = new Stopwatch();
+        {
+            Stopwatch time = new Stopwatch();
             time.Start();
             int count = 0;
-            SQLiteConnector.SQLiteConnectorClass(); // create the datbase to hold the output data
-            for (int i = 0; i < prsmFile.Count-1; i++)
+            //SQLiteConnector.SQLiteConnectorClass(); // create the datbase to hold the output data
+            for (int i = 0; i < inputs.Count - 1; i++)// prsmFile used to be a List<PrSmAndFile>
             {
-                for (int j = i + 1; j < prsmFile.Count; j++)
+                for (int j = i + 1; j < inputs.Count; j++)
                 {
-                    count ++;
+                    count++;
                     if (count%1000 == 0) // only output every 1000 lines
                     {
                         Console.WriteLine("Processed: " + count + ", Elapsed Time: " + time.ElapsedMilliseconds);
                     }
-                    var left = prsmFile[i]; // this is one spectrum
-                    var right = prsmFile[j]; // this is the second spectrum for comparison
-                    var tableAppendix = ComputeLevenshteinDistance.LevenshteinDistance(left.peptide, right.peptide); //this will call the calculator and then store to db with org1_org2 table name
-                    string[] peptidePair = {left.peptide, right.peptide};
-                    SQLiteConnector.Add(new SpectrumPair(left, right, peptidePair), tableAppendix); // here we are adding a new spectrumPair to a table of only that edit distance
+                    var left = inputs[i]; // this is one object
+                    var right = inputs[j]; // this is the second object for comparison
+                    var tableAppendix = ComputeLevenshteinDistance.LevenshteinDistance(left.peptide, right.peptide);
+                    string valuesForPairsTable = "('" + left.id + "','" + right.id + "','" + tableAppendix + "')";
+                    if (tableAppendix <5)
+                    {
+                        aggregateValuesForPairsTable.Add(valuesForPairsTable);
+                    }
                 }
             }
-            SQLiteConnector.Finish();
+            SQLiteConnector.FillDatabase(string.Join(",", aggregateValuesForPairsTable.ToArray()));
+            //SQLiteConnector.FillDatabase(string.Join(",", filesFromDir.Select(x => x.toDatabaseFile()).ToArray())aggregateValuesForPairsTable);
+            // SQLiteConnector.Finish();
         }
     }
 }
+  
 
 
