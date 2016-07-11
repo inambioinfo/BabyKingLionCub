@@ -14,7 +14,7 @@ namespace EditDistanceFinder
         {
             var options = new ParseCommandLine();
             if (CommandLine.Parser.Default.ParseArguments(args, options))
-            {   Console.WriteLine("******************************************************");
+            { 
                 SQLiteConnector newConnection = new SQLiteConnector(options);//.ToFile(); // this creates a new SortPairs and outputs the info to file/
                 Console.WriteLine("done");
                 Console.ReadKey();

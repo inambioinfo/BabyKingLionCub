@@ -29,7 +29,7 @@ namespace EditDistanceFinder
                 for (int j = i + 1; j < inputs.Count; j++)
                 {
                     count++;
-                    if (count%1000 == 0) // only output every 1000 lines
+                    if (count%10000 == 0) // only output every 1000 lines
                     {
                         Console.WriteLine("Processed: " + count + ", Elapsed Time: " + time.ElapsedMilliseconds);
                     }
@@ -41,9 +41,18 @@ namespace EditDistanceFinder
                     {
                         aggregateValuesForPairsTable.Add(valuesForPairsTable);
                     }
+                    if (count % 1000 == 0)
+                    {
+                        if (aggregateValuesForPairsTable.Count >0)
+                        {
+                            SQLiteConnector.FillDatabase(string.Join(",", aggregateValuesForPairsTable.ToArray()));
+                            aggregateValuesForPairsTable = new List<string>();
+                        }
+
+                    }
                 }
             }
-            SQLiteConnector.FillDatabase(string.Join(",", aggregateValuesForPairsTable.ToArray()));
+           
             //SQLiteConnector.FillDatabase(string.Join(",", filesFromDir.Select(x => x.toDatabaseFile()).ToArray())aggregateValuesForPairsTable);
             // SQLiteConnector.Finish();
         }

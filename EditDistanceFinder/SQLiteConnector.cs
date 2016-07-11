@@ -23,7 +23,7 @@ namespace EditDistanceFinder
         }
      
         public static void GetItemsFromDatabase()
-        {   Console.WriteLine("made it to the getItemsFromDatabase");
+        {   
             using (
                 System.Data.SQLite.SQLiteConnection con =
                     new System.Data.SQLite.SQLiteConnection("data source=" + inputDir + ".db3"))
@@ -58,10 +58,9 @@ namespace EditDistanceFinder
                 con.Open();
 
                 using (System.Data.SQLite.SQLiteCommand com = new System.Data.SQLite.SQLiteCommand(con))
-                {   Console.WriteLine("filling database");
+                {
                     com.CommandText = "INSERT INTO Pairs (id_scan1, id_scan2, editDist) Values " + valuesForPairs;
                     com.ExecuteNonQuery(); // Execute the query
-
                 }
                 con.Close(); // Close the connection to the database
             }
