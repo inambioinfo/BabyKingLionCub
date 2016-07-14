@@ -46,7 +46,7 @@ namespace EditDistanceFinder
                 }
                 con.Close(); // Close the connection to the database
             }
-            MakeCombinations something = new MakeCombinations(inputs);
+            new MakeCombinations(inputs);
         }
 
         public static void FillDatabase(string valuesForPairs)

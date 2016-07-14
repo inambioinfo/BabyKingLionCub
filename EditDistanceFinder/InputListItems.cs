@@ -9,7 +9,7 @@ namespace EditDistanceFinder
     public class InputListItems
     {
         public InputListItems(string id, string peptide)
-        {   Console.WriteLine("created inputlistitems object");
+        {   
             this.id = id;
             this.peptide = peptide;
         }
