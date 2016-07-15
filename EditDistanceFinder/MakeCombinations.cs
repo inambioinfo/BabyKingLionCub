@@ -14,7 +14,7 @@ namespace EditDistanceFinder
 
         public MakeCombinations(List<InputListItems> inputs)
         {
-            MakeCombinations.inputs = inputs;
+            MakeCombinations.inputs = inputs; // make combinations of all possible file/scan pairs
             MakeAllCombinations();
         }
 
@@ -23,7 +23,6 @@ namespace EditDistanceFinder
             Stopwatch time = new Stopwatch();
             time.Start();
             int count = 0;
-            //SQLiteConnector.SQLiteConnectorClass(); // create the datbase to hold the output data
             for (int i = 0; i < inputs.Count - 1; i++)// prsmFile used to be a List<PrSmAndFile>
             {
                 for (int j = i + 1; j < inputs.Count; j++)
@@ -35,20 +34,25 @@ namespace EditDistanceFinder
                     }
                     var left = inputs[i]; // this is one object
                     var right = inputs[j]; // this is the second object for comparison
-                    //add a length calculator for the peptides, if difference over 3, don't bother computing Lev distance
-                    if (Math.Abs(left.peptide.Length - right.peptide.Length) <= 3)
+                    //add a length calculator for the peptides, if difference over 2, don't bother computing Lev distance
+                    if (Math.Abs(left.peptide.Length - right.peptide.Length) < 3)
                     {
-                        var tableAppendix = ComputeLevenshteinDistance.LevenshteinDistance(left.peptide, right.peptide);
-                        string valuesForPairsTable = "('" + left.id + "','" + right.id + "','" + tableAppendix + "')";
-                        if (tableAppendix < 3)
+                        if (left.charge == right.charge)
                         {
-                            aggregateValuesForPairsTable.Add(valuesForPairsTable);
-                        }
+                            var tableAppendix = ComputeLevenshteinDistance.LevenshteinDistance(left.peptide,
+                                right.peptide);
+                            string valuesForPairsTable = "('" + left.id + "','" + right.id + "','" + tableAppendix +
+                                                         "')";
+                            if (tableAppendix < 3)
+                            {
+                                aggregateValuesForPairsTable.Add(valuesForPairsTable);
+                            }
 
-                        if (aggregateValuesForPairsTable.Count >= 800 && aggregateValuesForPairsTable.Count > 0)
-                        {
-                            SQLiteConnector.FillDatabase(string.Join(",", aggregateValuesForPairsTable.ToArray()));
-                            aggregateValuesForPairsTable = new List<string>();
+                            if (aggregateValuesForPairsTable.Count >= 800 && aggregateValuesForPairsTable.Count > 0)
+                            {
+                                SQLiteConnector.FillDatabase(string.Join(",", aggregateValuesForPairsTable.ToArray()));
+                                aggregateValuesForPairsTable = new List<string>();
+                            }
                         }
                     }
                 }

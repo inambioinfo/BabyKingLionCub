@@ -17,7 +17,6 @@ namespace EditDistanceFinder
             {   Console.WriteLine("Starting Program.");
                 SQLiteConnector newConnection = new SQLiteConnector(options);//.ToFile(); // this creates a new SortPairs and outputs the info to file/
                 Console.WriteLine("Finished. Press any key to exit");
-                Console.ReadKey();
             }
         }
     }
