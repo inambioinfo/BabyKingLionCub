@@ -32,14 +32,14 @@ namespace EditDistanceFinder
 
                 using (System.Data.SQLite.SQLiteCommand com = new System.Data.SQLite.SQLiteCommand(con))
                 {
-                    com.CommandText = "SELECT ID,peptide,charge,codex FROM Spectrum";
+                    com.CommandText = "SELECT Spectrum.ID,peptide,charge,path FROM Spectrum, Files Where Spectrum.codex = Files.codex";
                     using (System.Data.SQLite.SQLiteDataReader reader = com.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             //store id and peptide into an object holding those values
                             //holderForPairs.Add(reader["id"].ToString() + "\t" + reader["peptide"].ToString());
-                            inputs.Add(new InputListItems(reader["ID"].ToString(), reader["peptide"].ToString(), reader["charge"].ToString(), reader["codex"].ToString()));
+                            inputs.Add(new InputListItems(reader["ID"].ToString(), reader["peptide"].ToString(), reader["charge"].ToString(), reader["path"].ToString()));
                         }
                     }
                 }

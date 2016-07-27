@@ -32,9 +32,9 @@ namespace EditDistanceFinder
             if (leftPeptide.Length >= 4 && rightPeptide.Length >= 4 && (leftPeptide.Substring(0, 4) == rightPeptide.Substring(0, 4)) || leftPeptide.Substring(leftPeptide.Length - 4, 4) == rightPeptide.Substring(rightPeptide.Length - 4, 4)) { return true; }
             else return false;
         }
-        public bool filterForFilenameMatch(string leftCodex, string rightCodex) // determine if the codexes are the same -- later use actual org name, not codex
+        public bool filterForOrganismMatch(string leftOrg, string rightOrg) // determine if the codexes are the same -- later use actual org name, not codex
         {
-            if (leftCodex == rightCodex) { return true; }
+            if (leftOrg == rightOrg) { return true; }
             else return false;
         }
         public void MakeAllCombinations()
@@ -57,7 +57,7 @@ namespace EditDistanceFinder
                     if (filterForPeptideLength(left.peptide, right.peptide) != true) { continue; }
                     if (filterForSameCharge(left.charge, right.charge) != true) { continue; }
                     if (filterForBeginningOrEndMatch(left.peptide, right.peptide) != true) { continue; }
-                    if (filterForFilenameMatch(left.codex, right.codex) != true) { continue; }//later use actual org name, not codex
+                    if (filterForOrganismMatch(left.organismName, right.organismName) != true) { continue; }//later use actual org name, not codex
 
                     var tableAppendix = ComputeLevenshteinDistance.LevenshteinDistance(left.peptide, right.peptide);
                     string valuesForPairsTable = "('" + left.id + "','" + right.id + "','" + tableAppendix + "')";
